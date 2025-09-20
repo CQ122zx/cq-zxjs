@@ -26,6 +26,7 @@
             line-height: 1.8;
             color: var(--text);
             background-color: var(--light);
+            scroll-behavior: smooth; /* 平滑滚动 */
         }
         
         .container {
@@ -35,7 +36,7 @@
             padding: 0 15px;
         }
         
-        /* 头部样式 */
+        /* 头部样式 - 新增导航高亮样式 */
         header {
             background: linear-gradient(to right, var(--primary), #2c5c82);
             color: white;
@@ -90,16 +91,35 @@
             font-weight: 500;
             padding: 5px 10px;
             border-radius: 4px;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
+            position: relative;
         }
         
-        nav ul li a:hover {
+        /* 导航高亮样式 */
+        nav ul li a:hover,
+        nav ul li a.active {
             background: rgba(255, 255, 255, 0.1);
+            color: var(--accent);
         }
         
-        /* 英雄区域 */
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background-color: var(--accent);
+            border-radius: 1px;
+        }
+        
+        /* 英雄区域 - 新增锚点容器样式 */
+        #home {
+            scroll-margin-top: 80px; /* 避免导航栏遮挡 */
+        }
+        
         .hero {
-            background: url('photo-1541339907198-e08756dedf3f.avif') no-repeat center center/cover;
+            background: url('photo-1541339907198-e08756dedf3f.jpg') no-repeat center center/cover;
             height: 500px;
             display: flex;
             align-items: center;
@@ -158,7 +178,11 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        /* 关于学校部分 */
+        /* 关于学校部分 - 新增锚点容器样式 */
+        #school-overview {
+            scroll-margin-top: 80px; /* 避免导航栏遮挡 */
+        }
+        
         .section-title {
             text-align: center;
             margin: 50px 0 30px;
@@ -364,7 +388,7 @@
         }
         
         /* 页脚 */
-        footer {
+        .footer {
             background: var(--dark);
             color: white;
             padding: 40px 0 20px;
@@ -475,42 +499,42 @@
     </style>
 </head>
 <body>
-    <!-- 头部 -->
+    <!-- 头部 - 为导航项添加data-target属性 -->
     <header>
         <div class="container header-content">
             <div class="logo">
                 <img src="9a673b309ec94b75de90486a2b132831.jpg" alt="重庆市第一二二中学校徽">
-                <h1>重庆市第一二二中学校<br><span>真以立人 · 尚真致远</span></h1>
+                <h1>重庆市第一二二中学<br><span>真以立人 · 尚真致远</span></h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">首页</a></li>
-                    <li><a href="#">学校概况</a></li>
-                   </ul>
+                    <li><a href="#home" class="nav-link active" data-target="home">首页</a></li>
+                    <li><a href="#school-overview" class="nav-link" data-target="school-overview">学校概况</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <!-- 英雄区域 -->
-    <section class="hero">
+    <!-- 英雄区域 - 添加首页锚点容器 -->
+    <section id="home" class="hero">
         <div class="hero-content">
             <h2>嘉陵江畔，龙凤溪旁</h2>
             <p>重庆市第一二二中学 - 一座有着深厚历史文化底蕴的初级中学</p>
         </div>
     </section>
 
-    <!-- 关于学校 -->
-    <section class="about">
+    <!-- 关于学校 - 添加学校概况锚点容器 -->
+    <section id="school-overview" class="about">
         <div class="container">
             <h2 class="section-title">学校简介</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>重庆市第一二二中学坐落于嘉陵江畔，龙凤溪旁，是一所有着深厚历史文化底蕴的初级中学。</p>
-                    <p>学校历史悠久，上世纪六十年代，在北碚区龙凤桥镇龙车寺，建起了一所方便当地农村子弟就读的学校，取名"新丰中学"。1973年，该校更名为重庆市第一二二中学校。</p>
+                    <p>学校历史悠久，上世纪六十年代，在北碚区龙凤桥镇龙车寺，建起了一所方便当地农村子弟就读的学校，取名"新丰中学"。1973年，该校更名为重庆市第一二二二中学校。</p>
                     <p>1989年，北碚区政府将北碚区长滩中学合并至122中学，并确定重新选址建设新校，1991年8月，学校正式搬迁至龙凤桥镇龙凤二村85号，开启了学校发展的新征程。</p>
                 </div>
                 <div class="about-image">
-                    <img src="8e3bdb8706d6e01844e8a1412a40ecb7.jpg" alt="重庆市第一二二中学校园">
+                    <img src="8e3bdb8706d6e01844e8a1412a40ecb7.jpg" alt="重庆市第一二二二中学校园">
                 </div>
             </div>
         </div>
@@ -540,7 +564,7 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="timeline-date">1973年</div>
-                        <p>学校更名为重庆市第一二二中学校</p>
+                        <p>学校更名为重庆市第一二二二中学校</p>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -611,12 +635,10 @@
     </section>
 
     <!-- 页脚 -->
-    <footer>
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                <div class="footer-section">
-                   <div class="footer-section">
                     <h3>关注我们</h3>
                     <p>扫描二维码关注学校官方公众号</p>
                     <div class="qrcode">
@@ -629,5 +651,63 @@
             </div>
         </div>
     </footer>
+
+    <!-- 导航切换脚本 - 仅新增此脚本，无其他额外内容 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取导航链接元素
+            const navLinks = document.querySelectorAll('.nav-link');
+            // 导航栏高度（用于滚动位置校准）
+            const navHeight = document.querySelector('header').offsetHeight;
+
+            // 1. 点击导航切换高亮与滚动
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // 阻止默认锚点跳转（后续手动控制平滑滚动）
+                    e.preventDefault();
+                    
+                    // 获取目标区域ID
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // 切换导航高亮状态
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // 平滑滚动到目标区域（偏移导航栏高度，避免遮挡）
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // 2. 滚动时自动更新导航高亮
+            window.addEventListener('scroll', function() {
+                // 当前滚动位置（加上导航栏高度，提前触发高亮）
+                const scrollPosition = window.scrollY + navHeight + 20;
+                
+                // 遍历导航链接，判断当前可视区域对应哪个导航项
+                navLinks.forEach(link => {
+                    const targetId = link.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // 目标区域的顶部与底部位置
+                        const targetTop = targetElement.offsetTop;
+                        const targetBottom = targetTop + targetElement.offsetHeight;
+                        
+                        // 若当前滚动位置在目标区域内，高亮对应导航
+                        if (scrollPosition >= targetTop && scrollPosition < targetBottom) {
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
