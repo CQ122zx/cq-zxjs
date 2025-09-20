@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重庆市第一二二中学校简介</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 新增HTTP/2关键资源预加载配置 -->
+    <link rel="preload" href="9a673b309ec94b75de90486a2b132831.jpg" as="image" type="image/jpeg">
+    <link rel="preload" href="photo-1541339907198-e08756dedf3f.jpg" as="image" type="image/jpeg">
+    <link rel="preload" href="8e3bdb8706d6e01844e8a1412a40ecb7.jpg" as="image" type="image/jpeg">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
     <style>
         * {
             margin: 0;
@@ -181,6 +186,11 @@
         /* 关于学校部分 - 新增锚点容器样式 */
         #school-overview {
             scroll-margin-top: 80px; /* 避免导航栏遮挡 */
+        }
+
+        /* 新增：MCP服务器代码区域锚点偏移 */
+        #mcp-server-code {
+            scroll-margin-top: 80px;
         }
         
         .section-title {
@@ -386,6 +396,59 @@
             color: var(--primary);
             margin-bottom: 10px;
         }
+
+        /* 新增：GitHub MCP服务器代码样式 */
+        .mcp-code-section {
+            padding: 60px 0;
+            background: white;
+        }
+        .code-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .code-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .code-header h3 {
+            font-size: 1.2rem;
+        }
+        .code-header .code-repo {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .code-header .code-repo:hover {
+            color: white;
+        }
+        .code-snippet {
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #333;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+        .code-snippet .keyword {
+            color: #0033b3;
+            font-weight: 600;
+        }
+        .code-snippet .comment {
+            color: #6c757d;
+            font-style: italic;
+        }
+        .code-snippet .string {
+            color: #067d17;
+        }
         
         /* 页脚 */
         .footer {
@@ -495,11 +558,18 @@
             .timeline-item:nth-child(even) {
                 left: 0;
             }
+
+            /* 响应式下MCP代码区域适配 */
+            .code-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 头部 - 为导航项添加data-target属性 -->
+    <!-- 头部 - 为导航项添加data-target属性，新增MCP代码导航 -->
     <header>
         <div class="container header-content">
             <div class="logo">
@@ -652,7 +722,7 @@
         </div>
     </footer>
 
-    <!-- 导航切换脚本 - 仅新增此脚本，无其他额外内容 -->
+    <!-- 导航切换脚本 - 仅新增MCP代码区域导航逻辑，无其他额外内容 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 获取导航链接元素
@@ -685,6 +755,11 @@
             });
 
             // 2. 滚动时自动更新导航高亮
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
             window.addEventListener('scroll', function() {
                 // 当前滚动位置（加上导航栏高度，提前触发高亮）
                 const scrollPosition = window.scrollY + navHeight + 20;
@@ -707,6 +782,17 @@
                     }
                 });
             });
+
+            // 新增HTTP/2脚本优化：异步加载非关键资源（示例）
+            if (window.addEventListener) {
+                window.addEventListener('load', function() {
+                    // 延迟加载非关键图片（如二维码图片），利用HTTP/2多路复用特性
+                    const qrImg = document.querySelector('.qrcode img');
+                    if (qrImg && !qrImg.src) {
+                        qrImg.src = '640.webp';
+                    }
+                });
+            }
         });
     </script>
 </body>
